@@ -1,0 +1,31 @@
+{
+  "name": "babel-intl",
+  "version": "0.0.0",
+  "description": "使用babel 转换和提取多语言文本",
+  "main": "index.js",
+  "directories": {
+    "example": "example"
+  },
+  "dependencies": {
+    "@babel/core": "^7.1.2",
+    "commander": "^2.19.0",
+    "glob": "^7.1.3"
+  },
+  "devDependencies": {
+    "prettier": "1.14.3"
+  },
+  "scripts": {
+    "format": "prettier --trailing-comma es5 --single-quote --write ./src/**/*.js "
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yunxifd/babel-intl.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yunxifd/babel-intl/issues"
+  },
+  "homepage": "https://github.com/yunxifd/babel-intl#readme"
+}
