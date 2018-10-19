@@ -8,8 +8,10 @@
   },
   "dependencies": {
     "@babel/core": "^7.1.2",
+    "@babel/generator": "^7.1.3",
+    "@babel/types": "^7.1.3",
     "commander": "^2.19.0",
-    "glob": "^7.1.3"
+    "fs-readdir-recursive": "^1.1.0"
   },
   "devDependencies": {
     "prettier": "1.14.3"
