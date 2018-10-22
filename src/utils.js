@@ -8,12 +8,12 @@ import path from 'path';
  * @param {func} filter 过滤器，排除忽略的文件，可选
  */
 export const readDir = (dirname, filter) => {
-    return readDirRecursive(dirname, (filename, _index, currentDirectory) => {
-        const stat = fs.statSync(path.join(currentDirectory, filename));
+  return readDirRecursive(dirname, (filename, _index, currentDirectory) => {
+    const stat = fs.statSync(path.join(currentDirectory, filename));
 
-        if (stat.isDirectory()) return true;
-        return !filter || filter(filename);
-    });
+    if (stat.isDirectory()) return true;
+    return !filter || filter(filename);
+  });
 };
 
 /**
@@ -21,21 +21,21 @@ export const readDir = (dirname, filter) => {
  * @param {string} str
  */
 export const hasChineseChar = str => {
-    const reg = new RegExp('[\u4e00-\u9fa5]|[（）；，。“”！]');
-    return reg.test(str);
+  const reg = new RegExp('[\u4e00-\u9fa5]|[（）；，。“”！]');
+  return reg.test(str);
 };
 /**
  * 将文件名转换成 CamelCase
  * @param {string} filename
  */
 const toCamelCase = filename => {
-    return `${fileName.slice(0, 1).toLocaleLowerCase()}${fileName.slice(1)}`;
+  return `${fileName.slice(0, 1).toLocaleLowerCase()}${fileName.slice(1)}`;
 };
 const S4 = () => {
-    return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
+  return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
 };
 const guid = () => {
-    return S4() + S4();
+  return S4() + S4();
 };
 
 /**
@@ -43,5 +43,5 @@ const guid = () => {
  * @param {string} filename
  */
 export const getKey = filename => {
-    return toCamelCase(fileName) + '.' + guid();
+  return toCamelCase(fileName) + '.' + guid();
 };
