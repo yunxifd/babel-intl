@@ -1,20 +1,12 @@
-import readDirRecursive from 'fs-readdir-recursive';
 import fs from 'fs';
 import path from 'path';
-
+import crypto from 'crypto';
 /**
- * 获取指定目录下的所有文件
- * @param {string} dirname 目录，必填
- * @param {func} filter 过滤器，排除忽略的文件，可选
+ * glob support promise
+ * ref: https://github.com/isaacs/node-glob/issues/228#issuecomment-375170162
  */
-export const readDir = (dirname, filter) => {
-  return readDirRecursive(dirname, (filename, _index, currentDirectory) => {
-    const stat = fs.statSync(path.join(currentDirectory, filename));
-
-    if (stat.isDirectory()) return true;
-    return !filter || filter(filename);
-  });
-};
+import util from 'util';
+const glob = util.promisify(require('glob'));
 
 /**
  *  判断给定字符段是否包含中文字符
@@ -31,11 +23,9 @@ export const hasChineseChar = str => {
 const toCamelCase = filename => {
   return `${fileName.slice(0, 1).toLocaleLowerCase()}${fileName.slice(1)}`;
 };
-const S4 = () => {
-  return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
-};
-const guid = () => {
-  return S4() + S4();
+
+const randomKey = () => {
+  return crypto.randomBytes(4).toString('hex');
 };
 
 /**
@@ -43,5 +33,5 @@ const guid = () => {
  * @param {string} filename
  */
 export const getKey = filename => {
-  return toCamelCase(fileName) + '.' + guid();
+  return toCamelCase(fileName) + '.' + randomKey();
 };

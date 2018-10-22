@@ -1,17 +1,23 @@
-// import babel from '@babel/core';
-// import glob from 'glob';
-// import program from 'commander';
-const program = require('commander');
+import program from 'commander';
+const collect = (value, previousValue) => {
+  if (typeof value !== 'string') return previousValue;
+  const values = value.split(',');
+  return previousValue ? previousValue.concat(values) : values;
+};
+program
+  .version('0.0.1')
+  .usage('[command] [options]')
+  .option('--ignore [list]', 'list of glob paths to **not** compile', collect);
 
-program.version('0.0.1');
-
-program.command('replace [dir]').action((dir, cmd) => {});
+program.command('replace [dir]').action((dir, cmd) => {
+  console.log('replace', dir, cmd);
+});
 
 program
   .command('extract [dir]')
-  .option('-o,--output <filename>', '指定输出到哪个文件')
+  .option('-o,--out-file <filename>', 'set output into witch single file')
   .action((dir, cmd) => {
-    console.log(dir, cmd.output);
+    console.log('extract', dir, cmd);
   });
 
 program.parse(process.argv);
