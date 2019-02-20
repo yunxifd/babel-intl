@@ -1,23 +1,13 @@
-import program from 'commander';
-const collect = (value, previousValue) => {
-  if (typeof value !== 'string') return previousValue;
-  const values = value.split(',');
-  return previousValue ? previousValue.concat(values) : values;
-};
-program
-  .version('0.0.1')
-  .usage('[command] [options]')
-  .option('--ignore [list]', 'list of glob paths to **not** compile', collect);
+const program = require('commander');
 
-program.command('replace [dir]').action((dir, cmd) => {
-  console.log('replace', dir, cmd);
+program.version('0.0.1').usage('[command] [options]');
+
+program.command('replace <dir>').action(dir => {
+  console.log(dir);
 });
 
-program
-  .command('extract [dir]')
-  .option('-o,--out-file <filename>', 'set output into witch single file')
-  .action((dir, cmd) => {
-    console.log('extract', dir, cmd);
-  });
+program.command('extract <dir>').action(dir => {
+  console.log(dir);
+});
 
 program.parse(process.argv);
