@@ -86,7 +86,7 @@ export default function(babel) {
 ```
 
 具体 state 中的内容如下所示  
-![babel plugin option](./image/babel_Plugin_state.png)
+![babel plugin option](./image/babel_plugin_state.png)
 
 ## 参考资料
 
