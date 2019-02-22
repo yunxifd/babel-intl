@@ -9,15 +9,15 @@
   "scripts": {
     "format": "prettier --trailing-comma es5 --single-quote --write  src/**/*.js"
   },
-  "main": "index.js",
-  "directories": {
-    "example": "example"
+  "bin": {
+    "babel-intl": "./src/index"
   },
   "dependencies": {
     "@babel/core": "^7.3.3",
     "@babel/generator": "^7.3.3",
     "@babel/types": "^7.3.3",
-    "commander": "^2.19.0"
+    "commander": "^2.19.0",
+    "glob": "^7.1.3"
   },
   "devDependencies": {
     "husky": "^1.3.1",

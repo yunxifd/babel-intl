@@ -7,8 +7,16 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Launch Program",
-      "program": "${workspaceFolder}\\src\\extract.js"
+      "name": "replace",
+      "program": "${workspaceFolder}\\src\\index.js",
+      "args": ["replace", "E:\\myGithub\\babel-intl\\example\\replace"]
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "extract",
+      "program": "${workspaceFolder}\\src\\index.js",
+      "args": ["extract", "E:\\myGithub\\babel-intl\\example\\replace"]
     }
   ]
 }

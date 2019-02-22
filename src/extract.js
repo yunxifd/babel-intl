@@ -13,35 +13,16 @@ const babelOptions = {
 };
 
 module.exports = dir => {
-  var files = utils.readdirRecursive(dir, function(name) {
-    const nameInfo = name.split('.');
-    if (
-      nameInfo[1].toLowerCase() === 'js' ||
-      nameInfo[1].toLowerCase() === 'jsx'
-    )
-      return true;
-    return false;
-  });
+  var files = utils.readdirRecursive(dir);
 
   files.forEach(file => {
-    const filePath = path.join(dir, file);
-    babel.transformFileSync(filePath, babelOptions, function(err, result) {
-      if (err) {
-        console.error(err);
-        return;
-      } else
-        fs.writeFile(filePath, result.code, err => {
-          if (err) {
-            console.error(err);
-            return;
-          }
-        });
-    });
+    babel.transformFileSync(file, babelOptions);
   });
+
   const localizationFile = path.join(dir, 'localizations/zh-CN.json');
   const localizationData = JSON.stringify(storage.getAllItems());
   const localizationDir = path.parse(localizationFile).dir;
-  if (!fs.existsSync(localizationFile)) fs.mkdirSync(localizationFile);
+  if (!fs.existsSync(localizationDir)) fs.mkdirSync(localizationDir);
   fs.writeFileSync(localizationFile, localizationData, err => {
     if (err) {
       console.error(err);

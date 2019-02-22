@@ -17,29 +17,14 @@ const babelOptions = {
 };
 
 module.exports = dir => {
-  var files = utils.readdirRecursive(dir, function(name) {
-    const nameInfo = name.split('.');
-    if (
-      nameInfo[1].toLowerCase() === 'js' ||
-      nameInfo[1].toLowerCase() === 'jsx'
-    )
-      return true;
-    return false;
-  });
-
+  var files = utils.readdirRecursive(dir);
   files.forEach(file => {
-    const filePath = path.join(dir, file);
-    babel.transformFileSync(filePath, babelOptions, function(err, result) {
+    const code = babel.transformFileSync(file, babelOptions).code;
+    fs.writeFileSync(file, code, err => {
       if (err) {
         console.error(err);
         return;
-      } else
-        fs.writeFile(filePath, result.code, err => {
-          if (err) {
-            console.error(err);
-            return;
-          }
-        });
+      }
     });
   });
 };

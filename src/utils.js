@@ -1,5 +1,5 @@
 const crypto = require('crypto');
-const fs = require('fs');
+const glob = require('glob');
 const path = require('path');
 
 /**
@@ -31,27 +31,11 @@ const getKey = fileName => {
   return toCamelCase(fileName) + '.' + randomKey();
 };
 
-//递归读取目录下所有文件
-// ref: https://github.com/fs-utils/fs-readdir-recursive/blob/master/index.js
-function readdirRecursive(root, filter, files, prefix) {
-  prefix = prefix || '';
-  files = files || [];
-
-  var dir = path.join(root, prefix);
-  if (!fs.existsSync(dir)) return files;
-  if (fs.statSync(dir).isDirectory())
-    fs.readdirSync(dir)
-      .filter(function(name, index) {
-        if (filter) return filter(name, index, dir);
-        return true;
-      })
-
-      .forEach(function(name) {
-        readdirRecursive(root, filter, files, path.join(prefix, name));
-      });
-  else files.push(prefix);
-  return files;
-}
+// 获取指定目录下的所有 js jsx文件
+const readdirRecursive = dir => {
+  var pattern = path.join(dir || process.cwd(), '**/*.+(js|jsx)');
+  return glob.sync(pattern);
+};
 
 module.exports = {
   getKey,
