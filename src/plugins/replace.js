@@ -40,7 +40,7 @@ module.exports = function({ types: t }) {
         // 是否包含中文
         const isContainChinese = utils.isContainChinese(value);
         const { filename } = state;
-        const fileName = nodePath.basename(filename).split('.')[0];
+        const fileName = nodePath.parse(filename).name;
         const randmeKey = utils.getKey(fileName);
 
         if (!isContainChinese) return;
