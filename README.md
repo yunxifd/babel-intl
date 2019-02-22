@@ -18,3 +18,10 @@ formatMessage({
   "detailPanel.code": "编号"
 }
 ```
+
+## 使用方法
+
+```
+node ./src/index.js replace [dir]
+node ./src/index.js extract [dir]
+```
