@@ -22,6 +22,7 @@ module.exports = dir => {
   const localizationFile = path.join(dir, 'localizations/zh-CN.json');
   let localizationData = storage.getAllItems();
   // 由于js 中 object property 序列化的时候不会将key 按顺序排列，因此使用下列方法，将key排序
+  //ref: https://stackoverflow.com/a/51725400
   localizationData = Object.keys(localizationData)
     .sort()
     .reduce((accumulator, currentValue) => {
