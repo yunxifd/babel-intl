@@ -6,6 +6,15 @@
 
 ```js
 formatMessage({
+  id: 'detailPanel.x235432dsd',
+  defaultMessage: '编号',
+});
+```
+
+然后根据中文，手动调整翻译项的 key
+
+```js
+formatMessage({
   id: 'detailPanel.code',
   defaultMessage: '编号',
 });
