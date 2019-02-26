@@ -20,10 +20,17 @@ module.exports = dir => {
   });
 
   const localizationFile = path.join(dir, 'localizations/zh-CN.json');
-  const localizationData = JSON.stringify(storage.getAllItems());
+  let localizationData = storage.getAllItems();
+  // 由于js 中 object property 序列化的时候不会将key 按顺序排列，因此使用下列方法，将key排序
+  localizationData = Object.keys(localizationData)
+    .sort()
+    .reduce((accumulator, currentValue) => {
+      accumulator[currentValue] = localizationData[currentValue];
+      return accumulator;
+    }, {});
   const localizationDir = path.parse(localizationFile).dir;
   if (!fs.existsSync(localizationDir)) fs.mkdirSync(localizationDir);
-  fs.writeFileSync(localizationFile, localizationData, err => {
+  fs.writeFileSync(localizationFile, JSON.stringify(localizationData), err => {
     if (err) {
       console.error(err);
       return;
