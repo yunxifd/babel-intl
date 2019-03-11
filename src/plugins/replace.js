@@ -31,8 +31,8 @@ module.exports = function({ types: t }) {
             ]),
           ]
         );
+        // 是否在jsxAttribute
         const isJSXAttribute = t.isJSXAttribute(path.parent);
-
         if (isJSXAttribute)
           path.replaceWith(t.jsxExpressionContainer(formMessageExpression));
         else path.replaceWith(formMessageExpression);
@@ -46,6 +46,8 @@ module.exports = function({ types: t }) {
         const randmeKey = utils.getKey(fileName);
 
         if (!isContainChinese) return;
+        var valueStringLiteral = t.stringLiteral(value);
+        valueStringLiteral.hasReplaced = true;
         path.replaceWith(
           t.jsxExpressionContainer(
             t.callExpression(t.identifier('formatMessage'), [
@@ -56,7 +58,7 @@ module.exports = function({ types: t }) {
                 ),
                 t.objectProperty(
                   t.identifier('defaultMessage'),
-                  t.stringLiteral(value)
+                  valueStringLiteral
                 ),
               ]),
             ])
