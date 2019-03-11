@@ -14,7 +14,9 @@ module.exports = function({ types: t }) {
 
         if (!isContainChinese) return;
         if (path.node.hasReplaced) return;
-
+        // 是否在import语句中
+        const isInImportDeclaration = t.isImportDeclaration(path.parent);
+        if (isInImportDeclaration) return;
         var valueStringLiteral = t.stringLiteral(value);
         valueStringLiteral.hasReplaced = true;
         var formMessageExpression = t.callExpression(
