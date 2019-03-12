@@ -34,3 +34,6 @@ formatMessage({
 node ./src/index.js replace [dir]
 node ./src/index.js extract [dir]
 ```
+
+> 由于根据 ast 来修改代码，重新生成的代码和原来的代码格式上可能变化很大，不便于追踪版本变更，
+> 因此推荐 项目使用 [prettier](https://prettier.io/) 来保证代码有统一的格式
