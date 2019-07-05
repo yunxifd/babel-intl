@@ -1,4 +1,5 @@
 const storage = require('../storage');
+const errorInfo = require('../errorInfo');
 
 module.exports = function({ types: t }) {
   return {
@@ -13,6 +14,13 @@ module.exports = function({ types: t }) {
             var value = p.value.value;
             tmp[key] = value;
           });
+          if (
+            storage.getItem(tmp.id) &&
+            storage.getItem(tmp.id) !== tmp.defaultMessage
+          ) {
+            errorInfo.push(`key "${tmp.id} 存在不同翻译值"`);
+            return;
+          }
           storage.setItem(tmp.id, tmp.defaultMessage);
         } else return;
       },
