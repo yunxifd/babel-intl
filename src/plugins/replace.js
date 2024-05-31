@@ -13,12 +13,10 @@ module.exports = function({ types: t }) {
         const randmeKey = utils.getKey(fileName);
 
         if (!isContainChinese) return;
-        if (path.node.hasReplaced) return;
         // 是否在import语句中
         const isInImportDeclaration = t.isImportDeclaration(path.parent);
         if (isInImportDeclaration) return;
         var valueStringLiteral = t.stringLiteral(value);
-        valueStringLiteral.hasReplaced = true;
         var formMessageExpression = t.callExpression(
           t.identifier('formatMessage'),
           [
@@ -36,6 +34,7 @@ module.exports = function({ types: t }) {
         if (isJSXAttribute)
           path.replaceWith(t.jsxExpressionContainer(formMessageExpression));
         else path.replaceWith(formMessageExpression);
+        path.skip();
       },
       JSXText(path, state) {
         const value = path.node.value;
@@ -47,7 +46,6 @@ module.exports = function({ types: t }) {
 
         if (!isContainChinese) return;
         var valueStringLiteral = t.stringLiteral(value);
-        valueStringLiteral.hasReplaced = true;
         path.replaceWith(
           t.jsxExpressionContainer(
             t.callExpression(t.identifier('formatMessage'), [
@@ -64,6 +62,7 @@ module.exports = function({ types: t }) {
             ])
           )
         );
+        path.skip();
       },
     },
   };
